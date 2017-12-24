@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text, StatusBar } from "react-native";
+import { View, Text, StatusBar, StyleSheet } from "react-native";
 
 class AppContainer extends Component {
   static propTypes = {
@@ -8,9 +8,10 @@ class AppContainer extends Component {
   };
 
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn } = this.prop;
     return (
-      <View>
+      <View style={styles.container}>
+        <StatusBar hidden={false} />
         {isLoggedIn ? (
           <Text>You are logged in</Text>
         ) : (
@@ -20,5 +21,14 @@ class AppContainer extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
 
 export default AppContainer;
