@@ -6,16 +6,15 @@ class AppContainer extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
   };
-
   render() {
-    const { isLoggedIn } = this.prop;
+    const { isLoggedIn } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} />
         {isLoggedIn ? (
           <Text>You are logged in</Text>
         ) : (
-          <Text>I don't know you</Text>
+          <Text>I dont know you</Text>
         )}
       </View>
     );
