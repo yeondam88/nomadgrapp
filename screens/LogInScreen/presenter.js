@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   View,
   Text,
@@ -7,7 +8,8 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -29,6 +31,7 @@ const LogInScreen = props => (
         style={styles.textInput}
         autoCapitalize={"none"}
         autoCorrect={false}
+        onChange={props.changeUsername}
       />
       <TextInput
         placeholder="Password"
@@ -36,10 +39,15 @@ const LogInScreen = props => (
         autoCapitalize={"none"}
         secureTextEntry={true}
         autoCorrect={false}
+        onChange={props.changePassword}
       />
-      <TouchableOpacity style={styles.touchable}>
+      <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
         <View style={styles.button}>
-          <Text style={styles.btnText}>Log In</Text>
+          {props.isSubmitting ? (
+            <ActivityIndicator size="small" color="white" />
+          ) : (
+            <Text style={styles.btnText}>Log In</Text>
+          )}
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.fbContainer}>
@@ -51,6 +59,15 @@ const LogInScreen = props => (
     </View>
   </View>
 );
+
+LogInScreen.propTypes = {
+  isSubmitting: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  changeUsername: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -101,11 +118,13 @@ const styles = StyleSheet.create({
   touchable: {
     borderRadius: 5,
     backgroundColor: "#3E99EE",
-    width: width - 80
+    width: width - 80,
+    marginTop: 25
   },
   button: {
     paddingHorizontal: 7,
-    paddingVertical: 20
+    height: 50,
+    justifyContent: "center"
   },
   btnText: {
     color: "white",
