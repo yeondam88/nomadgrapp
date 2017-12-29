@@ -40,7 +40,9 @@ class Container extends Component {
     const { username, password, isSubmitting } = this.state;
     if (!isSubmitting) {
       if (username && password) {
-        // submit
+        this.setState({
+          isSubmitting: true
+        });
       } else {
         Alert.alert("All fields are required.");
       }

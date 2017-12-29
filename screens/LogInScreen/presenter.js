@@ -31,7 +31,7 @@ const LogInScreen = props => (
         style={styles.textInput}
         autoCapitalize={"none"}
         autoCorrect={false}
-        onChange={props.changeUsername}
+        onChangeText={props.changeUsername}
       />
       <TextInput
         placeholder="Password"
@@ -39,7 +39,9 @@ const LogInScreen = props => (
         autoCapitalize={"none"}
         secureTextEntry={true}
         autoCorrect={false}
-        onChange={props.changePassword}
+        onChangeText={props.changePassword}
+        returnKeyType={"send"}
+        onSubmitEditing={props.submit}
       />
       <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
         <View style={styles.button}>
