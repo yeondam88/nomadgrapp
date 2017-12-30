@@ -19,6 +19,7 @@ class Container extends Component {
         {...this.state}
         changeUsername={this._changeUsername}
         changePassword={this._changePassword}
+        logOut={this._logOut}
         submit={this._submit}
       />
     );
@@ -55,6 +56,11 @@ class Container extends Component {
         Alert.alert("All fields are required.");
       }
     }
+  };
+
+  _logOut = () => {
+    const { logOut } = this.props;
+    logOut();
   };
 }
 

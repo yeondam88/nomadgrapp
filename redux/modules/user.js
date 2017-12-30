@@ -57,6 +57,10 @@ function login(username, password) {
   };
 }
 
+function logOut() {
+  setLogOut();
+}
+
 // Initial State
 const initialState = {
   isLoggedIn: false
@@ -108,7 +112,8 @@ function applySetUser(state, action) {
 // Exports
 
 const actionCreators = {
-  login
+  login,
+  logOut
 };
 
 // Default Reducer Export

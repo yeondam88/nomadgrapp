@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text, StatusBar, StyleSheet } from "react-native";
+import { View, Text, StatusBar, StyleSheet, Button } from "react-native";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 
 class AppContainer extends Component {
@@ -12,7 +12,17 @@ class AppContainer extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} />
-        {isLoggedIn ? <Text>You are logged in</Text> : <LoggedOutNavigation />}
+        {isLoggedIn ? (
+          <View style={styles.div}>
+            <Text>You are logged in{JSON.stringify(this.props)}</Text>
+
+            <Button onPress={this.props.logOut} title="LogOut">
+              LogOut
+            </Button>
+          </View>
+        ) : (
+          <LoggedOutNavigation />
+        )}
       </View>
     );
   }
@@ -22,6 +32,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  div: {
+    display: "flex"
   }
 });
 

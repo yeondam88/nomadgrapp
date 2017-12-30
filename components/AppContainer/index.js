@@ -8,4 +8,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(AppContainer);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    logOut: () => {
+      return dispatch(userActions.logOut());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
