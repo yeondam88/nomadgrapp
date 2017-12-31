@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from prop-types;
 import { Alert } from "react-native";
 import LogInScreen from "./presenter";
 
@@ -6,6 +7,11 @@ class Container extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Log In"
   });
+
+  static propTypes = {
+    submit: PropTypes.func.isRequired,
+    fbLogin: PropTypes.func.isRequired
+  }
 
   state = {
     username: "",
@@ -19,8 +25,8 @@ class Container extends Component {
         {...this.state}
         changeUsername={this._changeUsername}
         changePassword={this._changePassword}
-        logOut={this._logOut}
         submit={this._submit}
+        fbLogin={this.props.fbLogin}
       />
     );
   }
@@ -56,11 +62,6 @@ class Container extends Component {
         Alert.alert("All fields are required.");
       }
     }
-  };
-
-  _logOut = () => {
-    const { logOut } = this.props;
-    logOut();
   };
 }
 

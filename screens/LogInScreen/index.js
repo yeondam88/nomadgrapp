@@ -7,8 +7,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     login: (username, password) => {
       return dispatch(userActions.login(username, password));
     },
-    logOut: () => {
-      return dispatch(userActions.logOut());
+    fbLogin: () => {
+      dispatch(userActions.facebookLogin());
     }
   };
 };

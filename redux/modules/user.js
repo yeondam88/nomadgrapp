@@ -1,6 +1,7 @@
 // Imports
-import { API_URL } from "../../constants";
+import { API_URL, FB_APP_ID } from "../../constants";
 import { AsyncStorage } from "react-native";
+import { Facebook } from "expo";
 
 // Actions
 
@@ -57,8 +58,14 @@ function login(username, password) {
   };
 }
 
-function logOut() {
-  setLogOut();
+function facebookLogin() {
+  return async dispatch => {
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+      FB_APP_ID,
+      { permissions: ["public_profile", "email"] }
+    );
+    console.log(type, token);
+  };
 }
 
 // Initial State
@@ -113,7 +120,7 @@ function applySetUser(state, action) {
 
 const actionCreators = {
   login,
-  logOut
+  facebookLogin
 };
 
 // Default Reducer Export
