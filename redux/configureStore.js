@@ -3,7 +3,7 @@ import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import user from "./modules/user";
-import photos from "./modules/photo";
+import photos from "./modules/photos";
 
 const middlewares = [thunk];
 
