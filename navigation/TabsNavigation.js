@@ -67,6 +67,18 @@ const TabsNavigation = TabNavigator(
     }
   },
   {
+    tabBarComponent: ({jumpToIndex, ...props, navigation}) => (
+      <TabBarBottom 
+        {...props}
+        jumpToIndex={index => {
+          if(index === 2) {
+            navigation.navigate('TakePhoto')
+          } else {
+            jumpToIndex(index)
+          }
+        }}
+      />
+    ),
     tabBarPosition: "bottom",
     tabBarOptions: {
       showLabel: false,
