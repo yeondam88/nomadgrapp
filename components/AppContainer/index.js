@@ -4,16 +4,9 @@ import AppContainer from "./presenter";
 const mapStateToProps = (state, ownProps) => {
   const { user } = state;
   return {
-    isLoggedIn: user.isLoggedIn
+    isLoggedIn: user.isLoggedIn,
+    profile: user.profile
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    logOut: () => {
-      return dispatch(userActions.logOut());
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps)(AppContainer);
