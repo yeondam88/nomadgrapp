@@ -41,9 +41,7 @@ function getFeed() {
           return response.json();
         }
       })
-      .then(json => {
-        dispatch(setFeed(json));
-      });
+      .then(json => dispatch(setFeed(json)));
   };
 }
 
@@ -62,9 +60,7 @@ function getSearch() {
           return response.json();
         }
       })
-      .then(json => {
-        dispatch(setSearch(json));
-      });
+      .then(json => dispatch(setSearch(json)));
   };
 }
 

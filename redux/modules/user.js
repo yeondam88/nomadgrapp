@@ -111,16 +111,14 @@ function getNotifications() {
           return response.json();
         }
       })
-      .then(json => {
-        dispatch(setNotifications(json));
-      });
+      .then(json => dispatch(setNotifications(json)));
   };
 }
 
 function getOwnProfile() {
   return (dispatch, getState) => {
     const { user: { token, profile: { username } } } = getState();
-    fetch(`${API_URL}/users/${username}`, {
+    fetch(`${API_URL}/users/${username}/`, {
       headers: {
         Authorization: `JWT ${token}`
       }
@@ -132,9 +130,7 @@ function getOwnProfile() {
           return response.json();
         }
       })
-      .then(json => {
-        dispatch(setUser(json));
-      });
+      .then(json => dispatch(setUser(json)));
   };
 }
 
