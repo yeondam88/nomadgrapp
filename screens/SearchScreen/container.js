@@ -29,6 +29,14 @@ class Container extends Component {
     });
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.search) {
+      this.setState({
+        isFetching: false
+      });
+    }
+  };
+
   render() {
     return (
       <SearchScreen {...this.state} {...this.props} refresh={this._refresh} />
@@ -37,12 +45,16 @@ class Container extends Component {
 
   _submitSearch = text => {
     const { searchingBy } = this.state;
-    const { searchHashtag } = this.props;
+    const { searchHashtag, getEmptyFeed } = this.props;
+    if (text === "") {
+      getEmptyFeed();
+    } else {
+      searchHashtag(text.toLowerCase());
+    }
     this.setState({
       searchingBy: text,
       isFetching: true
     });
-    searchHashtag(text);
   };
 
   _refresh = () => {
