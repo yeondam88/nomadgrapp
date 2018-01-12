@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Dimensions
 } from "react-native";
-import SquarePhoto from "../../components/SquarePhoto";
+import Notification from "../../components/Notification";
 
 const { width } = Dimensions.get("window");
 
@@ -29,7 +29,7 @@ const NotificationsScreen = props => (
         </Text>
       ) : (
         props.notifications.map(notification => (
-          <SquarePhoto key={notification.id} imageURL={notification.file} />
+          <Notification key={notification.id} {...notification} />
         ))
       )}
     </View>
@@ -38,9 +38,7 @@ const NotificationsScreen = props => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flex: 1
   },
   notFound: {
     color: "#bbb",
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
 NotificationsScreen.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired,
-  search: PropTypes.array.isRequired
+  notifications: PropTypes.array.isRequired
 };
 
 export default NotificationsScreen;
