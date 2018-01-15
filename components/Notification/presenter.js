@@ -19,7 +19,8 @@ const Notification = props => (
       onPress={() =>
         props.navigation.navigate("ProfileDetail", {
           user: props.creator
-        })}
+        })
+      }
     >
       <FadeIn>
         <Image
@@ -66,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   avatar: {
-    height: 30,
-    width: 30,
+    height: 50,
+    width: 50,
     borderRadius: 25,
     marginRight: 15
   },
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
     width: width / 2.5
   },
   payload: {
-    height: 30,
-    width: 30
+    height: 50,
+    width: 50
   },
   touchable: {
     borderRadius: 3,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontWeight: "600",
     textAlign: "center",
-    color: "black"
+    color: "white"
   }
 });
 
