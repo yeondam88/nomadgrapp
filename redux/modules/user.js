@@ -136,7 +136,7 @@ function getOwnProfile() {
 
 function followUser(userId) {
   return (dispatch, getState) => {
-    const { token } = getState();
+    const { user: { token } } = getState();
     return fetch(`${API_URL}/users/${userId}/follow/`, {
       method: "POST",
       headers: {
@@ -156,7 +156,7 @@ function followUser(userId) {
 
 function unfollowUser(userId) {
   return (dispatch, getState) => {
-    const { token } = getState();
+    const { user: { token } } = getState();
     return fetch(`${API_URL}/users/${userId}/unfollow/`, {
       method: "POST",
       headers: {
