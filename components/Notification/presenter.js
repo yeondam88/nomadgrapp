@@ -126,4 +126,4 @@ Notification.propTypes = {
   updated_at: PropTypes.string.isRequired
 };
 
-export default Notification;
+export default withNavigation(Notification);
