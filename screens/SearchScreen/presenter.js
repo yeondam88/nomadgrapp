@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import SquarePhoto from "../../components/SquarePhoto";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const SearchScreen = props => (
   <ScrollView

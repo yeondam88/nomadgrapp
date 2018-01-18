@@ -18,10 +18,7 @@ function setFeed(feed) {
 }
 
 function setSearch(search) {
-  return {
-    type: SET_SEARCH,
-    search
-  };
+  return { type: SET_SEARCH, search };
 }
 
 // API Actions
@@ -158,7 +155,7 @@ function applySetSearch(state, action) {
   };
 }
 
-// Export
+// Exports
 
 const actionCreators = {
   getFeed,
@@ -169,6 +166,7 @@ const actionCreators = {
 };
 
 export { actionCreators };
+
 // Default Reducer Export
 
 export default reducer;

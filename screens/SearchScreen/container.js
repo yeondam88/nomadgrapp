@@ -4,31 +4,27 @@ import SearchScreen from "./presenter";
 import SearchBar from "../../components/SearchBar";
 
 class Container extends Component {
-  static propTypes = {
-    getEmptyFeed: PropTypes.func.isRequired,
-    searchHashtag: PropTypes.func.isRequired,
-    search: PropTypes.array
-  };
-
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     return {
       headerTitle: <SearchBar submit={text => params.submitSearch(text)} />
     };
   };
-
+  static propTypes = {
+    getEmptySearch: PropTypes.func.isRequired,
+    searchHashtag: PropTypes.func.isRequired,
+    search: PropTypes.array
+  };
   state = {
     searchingBy: "",
     isFetching: false
   };
-
   componentDidMount() {
     const { navigation } = this.props;
     navigation.setParams({
       submitSearch: this._submitSearch
     });
   }
-
   componentWillReceiveProps = nextProps => {
     if (nextProps.search) {
       this.setState({
@@ -42,30 +38,27 @@ class Container extends Component {
       <SearchScreen {...this.state} {...this.props} refresh={this._refresh} />
     );
   }
-
   _submitSearch = text => {
     const { searchingBy } = this.state;
-    const { searchHashtag, getEmptyFeed } = this.props;
+    const { searchHashtag, getEmptySearch } = this.props;
     if (text === "") {
-      getEmptyFeed();
+      getEmptySearch();
     } else {
-      searchHashtag(text.toLowerCase());
+      searchHashtag(text);
     }
     this.setState({
       searchingBy: text,
       isFetching: true
     });
   };
-
   _refresh = () => {
     const { searchingBy } = this.state;
-    const { getEmptyFeed, searchHashtag } = this.props;
+    const { getEmptySearch, searchHashtag } = this.props;
     if (searchingBy === "") {
-      getEmptyFeed();
+      getEmptySearch();
     } else {
       searchHashtag(searchingBy);
     }
   };
 }
-
 export default Container;
