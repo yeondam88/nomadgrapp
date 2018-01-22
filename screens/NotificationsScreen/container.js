@@ -8,6 +8,10 @@ class Container extends Component {
     getNotifications: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    notifications: []
+  };
+
   state = {
     isFetching: false
   };
