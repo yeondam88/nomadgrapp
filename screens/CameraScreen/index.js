@@ -83,9 +83,24 @@ class CameraScreen extends Component {
             </Camera>
           )}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPressOut={this._takePhoto}>
-              <View style={styles.button} />
-            </TouchableOpacity>
+            {pictureTaken ? (
+              <View style={styles.photoAction}>
+                <TouchableOpacity onPressOut={this._rejectPhoto}>
+                  <MaterialIcons name={"cancel"} size={60} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity onPressOut={this._approvePhoto}>
+                  <MaterialIcons
+                    name={"check-circle"}
+                    size={60}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity onPressOut={this._takePhoto}>
+                <View style={styles.button} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       );
@@ -127,6 +142,20 @@ class CameraScreen extends Component {
       }
     }
   };
+  _rejectPhoto = () => {
+    this.setState({
+      picture: null,
+      pictureTaken: false
+    });
+  };
+  _approvePhoto = async () => {
+    const { picture } = this.state;
+    const saveResult = await CameraRoll.saveToCameraRoll(picture, "photo");
+    this.setState({
+      picture: null,
+      pictureTaken: false
+    });
+  };
 }
 
 const styles = StyleSheet.create({
@@ -158,6 +187,13 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     margin: 10
+  },
+  photoAction: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    flex: 1,
+    alignItems: "center",
+    width: 250
   }
 });
 
