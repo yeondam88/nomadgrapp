@@ -4,11 +4,11 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image,
   CameraRoll
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Camera, Permissions } from "expo";
+import FitImage from "react-native-fit-image";
 
 class CameraScreen extends Component {
   state = {
@@ -25,7 +25,13 @@ class CameraScreen extends Component {
   };
 
   render() {
-    const { hasCameraPermission, type, flash } = this.state;
+    const {
+      hasCameraPermission,
+      type,
+      flash,
+      picture,
+      pictureTaken
+    } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -33,41 +39,51 @@ class CameraScreen extends Component {
     } else {
       return (
         <View style={styles.container}>
-          <Camera
-            style={styles.camera}
-            type={type}
-            flashMode={flash}
-            ref={camera => (this.camera = camera)}
-          >
-            <TouchableOpacity onPressOut={this._changeType}>
-              <View style={styles.actions}>
-                <MaterialIcons
-                  name={
-                    type === Camera.Constants.Type.back
-                      ? "camera-front"
-                      : "camera-rear"
-                  }
-                  color="white"
-                  size={40}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPressOut={this._changeFlash}>
-              <View style={styles.actions}>
-                {flash === Camera.Constants.FlashMode.off && (
-                  <MaterialIcons name={"flash-off"} color="white" size={40} />
-                )}
-                {flash === Camera.Constants.FlashMode.on && (
-                  <MaterialIcons name={"flash-on"} color="white" size={40} />
-                )}
-                {flash === Camera.Constants.FlashMode.auto && (
-                  <MaterialIcons name={"flash-auto"} color="white" size={40} />
-                )}
-              </View>
-            </TouchableOpacity>
-          </Camera>
+          {pictureTaken ? (
+            <View style={{ flex: 2 }}>
+              <FitImage source={{ uri: picture }} style={{ flex: 1 }} />
+            </View>
+          ) : (
+            <Camera
+              style={styles.camera}
+              type={type}
+              flashMode={flash}
+              ref={camera => (this.camera = camera)}
+            >
+              <TouchableOpacity onPressOut={this._changeType}>
+                <View style={styles.actions}>
+                  <MaterialIcons
+                    name={
+                      type === Camera.Constants.Type.back
+                        ? "camera-front"
+                        : "camera-rear"
+                    }
+                    color="white"
+                    size={40}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPressOut={this._changeFlash}>
+                <View style={styles.actions}>
+                  {flash === Camera.Constants.FlashMode.off && (
+                    <MaterialIcons name={"flash-off"} color="white" size={40} />
+                  )}
+                  {flash === Camera.Constants.FlashMode.on && (
+                    <MaterialIcons name={"flash-on"} color="white" size={40} />
+                  )}
+                  {flash === Camera.Constants.FlashMode.auto && (
+                    <MaterialIcons
+                      name={"flash-auto"}
+                      color="white"
+                      size={40}
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            </Camera>
+          )}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={this._takePhoto}>
               <View style={styles.button} />
             </TouchableOpacity>
           </View>
@@ -95,6 +111,21 @@ class CameraScreen extends Component {
         return { flash: Camera.Constants.FlashMode.off };
       }
     });
+  };
+  _takePhoto = async () => {
+    const { pictureTaken } = this.state;
+    if (!pictureTaken) {
+      if (this.camera) {
+        const takenPhoto = await this.camera.takePictureAsync({
+          quality: 0.5,
+          exif: true
+        });
+        this.setState({
+          picture: takenPhoto.uri,
+          pictureTaken: true
+        });
+      }
+    }
   };
 }
 
