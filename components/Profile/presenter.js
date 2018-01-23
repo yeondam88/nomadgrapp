@@ -13,6 +13,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import FadeIn from "react-native-fade-in-image";
 import ProfileNumber from "../ProfileNumber";
+import SquarePhoto from "../SquarePhoto";
+import Photo from "../Photo";
 
 const width = Dimensions.get("window").width;
 
@@ -111,6 +113,21 @@ const Profile = props => (
             </View>
           </TouchableOpacity>
         </View>
+
+        {props.mode === "grid" && (
+          <View style={styles.photoContainer}>
+            {props.profileObject.images &&
+              props.profileObject.images.map(photo => (
+                <SquarePhoto key={photo.id} imageURL={photo.file} />
+              ))}
+          </View>
+        )}
+
+        {props.mode === "list" &&
+          props.profileObject.images &&
+          props.profileObject.images.map(photo => (
+            <Photo {...photo} key={photo.id} />
+          ))}
       </View>
     </ScrollView>
   </View>
@@ -167,7 +184,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   photoContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
+    flexWrap: "wrap"
   },
   button: {
     borderRadius: 3,
