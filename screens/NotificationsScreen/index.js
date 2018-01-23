@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getNotifications: () => {
-      dispatch(photoAction.getNotifications());
+      dispatch(userActions.getNotifications());
     }
   };
 };
