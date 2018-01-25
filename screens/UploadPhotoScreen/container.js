@@ -1,12 +1,58 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Alert } from "react-native";
 import UploadPhotoScreen from "./presenter";
 
 class Container extends Component {
-  static propTypes = {};
+  state = {
+    caption: "",
+    location: "",
+    tags: "",
+    isSubmitting: false
+  };
+
   render() {
-    return <UploadPhotoScreen />;
+    const { navigation: { state: { params: { url } } } } = this.props;
+    return (
+      <UploadPhotoScreen
+        imageURL={url}
+        {...this.state}
+        submit={this._submit}
+        onCaptionChange={this._onCaptionChange}
+        onLocationChange={this._onLocationChange}
+        onTagsChange={this._onTagsChange}
+      />
+    );
   }
+
+  _onCaptionChange = text => {
+    this.setState({
+      caption: text
+    });
+  };
+
+  _onLocationChange = text => {
+    this.setState({
+      location: text
+    });
+  };
+
+  _onTagsChange = text => {
+    this.setState({
+      tags: text
+    });
+  };
+
+  _submit = () => {
+    const { caption, location, tags } = this.state;
+    if (caption && location && tags) {
+      this.setState({
+        isSubmitting: true
+      });
+    } else {
+      Alert.alert("All fields are required.");
+    }
+  };
 }
 
 export default Container;

@@ -38,7 +38,8 @@ class Container extends Component {
 
   _approvePhoto = () => {
     const { navigation: { navigate } } = this.props;
-    navigate("uploadPhoto", {
+    const { pickedPhoto } = this.state;
+    navigate("UploadPhoto", {
       url: pickedPhoto.node.image.uri
     });
   };
